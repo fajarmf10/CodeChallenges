@@ -15,15 +15,13 @@ def extract(link):
 
     if fonts:
         global secret_phrases
-        secret_phrases.append(fonts.text())
-        print(fonts.text())
+        secret_phrases.append(fonts.text().split(': '))
 
     return pq('body').find('a')
 
 
 def run(cur_link):
-    print('Current link :' + cur_link)
-    global url_tracker;
+    global url_tracker
     url_tracker[cur_link] = True
     extracted_links = extract(cur_link)
 
@@ -37,5 +35,8 @@ def run(cur_link):
 
 
 if __name__ == "__main__":
+    print('Processing....')
     run(start_link)
-    print(secret_phrases)
+    secret_phrases.sort()
+    for list in secret_phrases:
+        print(list[1])
